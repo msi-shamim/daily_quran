@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Quran Verses</title>
+    <style>
+        body {
+            width: 400px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f7f7f7;
+        }
+
+        .verse-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .bismillah {
+            text-align: center;
+            font-family: 'Traditional Arabic', Arial;
+            font-size: 24px;
+            background-color: #fff3e6;
+            color: #ff8c00;
+            padding: 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            direction: rtl;
+        }
+
+        .chapter-info {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .revelation-info {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .sajda-warning {
+            background-color: #ffe6e6;
+            color: #cc0000;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .arabic {
+            font-family: 'Traditional Arabic', Arial;
+            font-size: 24px;
+            text-align: right;
+            direction: rtl;
+            line-height: 1.8;
+            color: #1a1a1a;
+            padding: 15px 0;
+            margin: 10px 0;
+        }
+
+        .translation {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #34495e;
+            padding: 15px 0;
+            margin: 10px 0;
+            border-top: 1px solid #eee;
+            direction: ltr;
+        }
+
+        .meta-info {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            margin: 10px 0;
+            background-color: #fdeaea;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .progress {
+            height: 4px;
+            background-color: #eee;
+            border-radius: 2px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        #closeBtn {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        #nextBtn {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+<div class="verse-container">
+    <div id="bismillah" class="bismillah">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَـٰنِ ٱلرَّحِیمِ</div>
+    <div id="chapterInfo" class="chapter-info"></div>
+    <div id="revelationInfo" class="revelation-info"></div>
+    <div id="sajdaWarning" class="sajda-warning">
+        This verse contains a sajda. Please prepare yourself for prostration.
+    </div>
+    <div id="loading" class="loading">Loading verse...</div>
+    <div id="error" class="error"></div>
+    <div id="arabic" class="arabic"></div>
+    <div id="translation" class="translation"></div>
+    <div id="metaInfo" class="meta-info"></div>
+    <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+</div>
+<div class="buttons">
+    <button id="closeBtn">Close</button>
+    <button id="nextBtn">Next Verse</button>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
