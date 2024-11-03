@@ -2,11 +2,13 @@
   "manifest_version": 3,
   "name": "Daily Quran Verses",
   "version": "1.0",
-  "description": "Shows Quran verses with English translation periodically",
+  "description": "Shows Quran verses with Bengali/English translation periodically",
   "permissions": [
     "storage",
     "alarms",
-    "notifications"
+    "notifications",
+    "idle",
+    "commands"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -25,5 +27,14 @@
     "32": "icons/icon32.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
+  },
+  "commands": {
+    "show_verse": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M",
+        "mac": "Command+Shift+M"
+      },
+      "description": "Show Quran verse"
+    }
   }
 }
