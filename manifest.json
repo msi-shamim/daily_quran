@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Daily Quran Verses",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Shows Quran verses with Bengali/English translation periodically",
   "permissions": [
     "storage",
