@@ -1,8 +1,16 @@
 // background.js
+
+// Constants definition
+// Defines time-related constants used throughout the extension
+// - HOUR_IN_MINUTES: Represents 60 minutes
+// - INITIAL_DELAY_MINUTES: Sets first reminder delay to 1 minute after browser opens
 const HOUR_IN_MINUTES = 60;
 const INITIAL_DELAY_MINUTES = 1; // Show first reminder after 1 minute of browser open
 
-// Track browser startup
+// Browser Startup Handler
+// Triggered when the browser starts
+// - Shows initial welcome notification
+// - Sets up first reminder alarm
 chrome.runtime.onStartup.addListener(async () => {
     // Show initial notification when browser starts
     await showReadingReminder('Welcome back! Time to read a verse from the Holy Quran.');
@@ -13,6 +21,11 @@ chrome.runtime.onStartup.addListener(async () => {
     });
 });
 
+// Extension Installation Handler
+// Triggered when the extension is first installed
+// - Initializes storage with default values (Chapter 1, Verse 1)
+// - Sets up hourly reminder checks
+// - Shows welcome notification with "Start Reading" button
 chrome.runtime.onInstalled.addListener(async () => {
     // Initialize storage with first verse
     await chrome.storage.local.set({
@@ -40,7 +53,12 @@ chrome.runtime.onInstalled.addListener(async () => {
     });
 });
 
-// Handle different types of alarms
+// Alarm Event Handler
+// Manages different types of alarms in the extension
+// - Handles initial reminder when browser opens
+// - Manages hourly verse check reminders
+// - Checks if reminders are enabled before showing notifications
+// - Calculates time since last verse was shown
 chrome.alarms.onAlarm.addListener(async (alarm) => {
     try {
         const settings = await chrome.storage.local.get(['remindersEnabled', 'lastShownTime']);
@@ -65,7 +83,11 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     }
 });
 
-// Function to show reading reminder
+// Reading Reminder Function
+// Creates and displays notifications to the user
+// - Shows customizable message
+// - Includes "Read Now" and "Remind Later" buttons
+// - Makes notifications persist until user interaction
 async function showReadingReminder(message) {
     const notification = await chrome.notifications.create({
         type: 'basic',
@@ -81,7 +103,10 @@ async function showReadingReminder(message) {
     });
 }
 
-// Handle notification button clicks
+// Notification Button Click Handler
+// Manages user interactions with notification buttons
+// - "Read Now": Opens extension popup
+// - "Remind Later": Snoozes reminder for 15 minutes
 chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
     if (buttonIndex === 0) {
         // Read Now
@@ -96,13 +121,20 @@ chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) =
     }
 });
 
-// Handle notification clicks
+// Notification Click Handler
+// Manages direct clicks on notifications
+// - Opens extension popup
+// - Clears the clicked notification
 chrome.notifications.onClicked.addListener((notificationId) => {
     chrome.action.openPopup();
     chrome.notifications.clear(notificationId);
 });
 
-// Listen for changes in browser state
+// Browser State Change Handler
+// Monitors user activity state changes
+// - Checks if user returns after being away
+// - Shows welcome back message if sufficient time has passed
+// - Manages verse reminder timing based on user activity
 chrome.idle.onStateChanged.addListener(async (state) => {
     if (state === 'active') {
         const settings = await chrome.storage.local.get('lastShownTime');
@@ -114,7 +146,9 @@ chrome.idle.onStateChanged.addListener(async (state) => {
     }
 });
 
-// Add commands for keyboard shortcuts
+// Keyboard Shortcuts Handler
+// Manages keyboard command shortcuts
+// - Implements "show_verse" command to open extension popup
 chrome.commands.onCommand.addListener((command) => {
     if (command === "show_verse") {
         chrome.action.openPopup();
